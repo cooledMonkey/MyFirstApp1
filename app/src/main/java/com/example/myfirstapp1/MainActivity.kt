@@ -8,7 +8,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -25,15 +24,13 @@ class MainActivity : AppCompatActivity() {
         imageView.layoutParams.height = 200
         textView.text = imageView.layoutParams.height.toString()
         imageView.setColorFilter(Color.argb(alfa,red, green, blue))
-        //scrollDetector = new MyGestureListener(this, imageView)
     }
 
-    var alfa = 255; var red = 255; var green = 255; var blue = 255
+    private var alfa = 255; private var red = 255; private var green = 255;private var blue = 255
     private lateinit var textView: TextView
     private lateinit var imageView: ImageView
     private lateinit var constraintLayout: ConstraintLayout
-
-    fun countMe (view: View) {
+    fun countMe (@Suppress("UNUSED_PARAMETER")view: View) {
         var count: Int = (imageView.layoutParams.height)
         count += 200
         val sizeRiseAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.sunrise)
@@ -53,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun randomMe(view: View){
+    fun randomMe(@Suppress("UNUSED_PARAMETER")view: View){
         val randomIntent = Intent(this, SecondActivity::class.java)
         startActivity(randomIntent)
     }

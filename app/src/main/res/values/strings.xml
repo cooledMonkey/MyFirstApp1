@@ -7,4 +7,7 @@
     <string name="random_heading">Here is a random number from 0 to %1d</string>
     <string name="random_number">R</string>
     <string name="take">Take some apple pie</string>
+    <string name="textView2">0</string>
+    <string name="autoButSecAct">Auto</string>
+    <string name="plus_one">+1</string>
 </resources>
