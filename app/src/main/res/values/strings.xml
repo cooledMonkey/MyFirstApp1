@@ -10,4 +10,6 @@
     <string name="textView2">0</string>
     <string name="autoButSecAct">Auto</string>
     <string name="plus_one">+1</string>
+    <string name="nav_open">open</string>
+    <string name="nav_close">close</string>
 </resources>

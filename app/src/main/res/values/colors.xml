@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="screenBackground">#15568A</color>
     <color name="buttonBackground">#BBDEFB</color>
+    <color name="drawLeftShadow">#57506e</color>
 </resources>
