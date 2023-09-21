@@ -12,4 +12,6 @@
     <string name="plus_one">+1</string>
     <string name="nav_open">open</string>
     <string name="nav_close">close</string>
+    <string name="navigation_drawer_open">Open navigation bar</string>
+    <string name="navigation_drawer_close">Close Navigation bar</string>
 </resources>

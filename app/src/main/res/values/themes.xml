@@ -1,9 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <attr name="myFavoriteColor" format="color|reference" />
+    <attr name="buttColor" format="color|reference" />
+    <attr name="disButtColor" format="color|reference" />
     <style name="Base.Theme.MyFirstApp1" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="myFavoriteColor">@color/screenBackground</item>
+        <item name="buttColor">@color/buttonBack</item>
+        <item name="disButtColor">#433d54</item>
     </style>
 
-    <style name="Theme.MyFirstApp1" parent="Base.Theme.MyFirstApp1" />
+    <style name="Theme_MyFirstApp1" parent="Base.Theme.MyFirstApp1">
+        <item name="myFavoriteColor">@color/screenBackgroundLight</item>
+        <item name="buttColor">@color/buttonBackLight</item>
+        <item name="colorPrimary">#63512c</item>
+        <item name="disButtColor">#36311b</item>
+    </style>
+
 </resources>
