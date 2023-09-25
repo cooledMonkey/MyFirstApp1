@@ -1,5 +1,6 @@
 package com.example.myfirstapp1
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils.concat
@@ -10,25 +11,24 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.NonCancellable.start
 import java.lang.Integer.parseInt
 import java.util.Timer
 import java.util.TimerTask
 
 
-var isLightTheme = false
+//  TODO: сохранение состояний кнопок и цветовой гаммы фигур
 
+
+var isLightTheme = false
 var  flagBud2 = 0
 var  flagBud3 = false
 var  flagBud4 = false
@@ -37,7 +37,6 @@ var  flagBud6 = false
 class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
-        //setTheme(R.style.Theme_MyFirstApp1)
         if (isLightTheme == false) {
             setTheme(R.style.Base_Theme_MyFirstApp1)
         } else if (isLightTheme == true) {
@@ -84,60 +83,29 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         constraintLayout2 = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
-//        val navigationView: NavigationView = nav_view.navView // your navigation drawer id
-//
-//        val menuItem =
-//            navigationView.menu.findItem(R.id.app_bar_switch) // first insialize MenuItem
-//
-//        @SuppressLint("UseSwitchCompatOrMaterialCode") val switchButton = menuItem.actionView!!
-//            .findViewById<View>(R.id.app_bar_switch) as Switch
-//        // if you are using Switch in your @layout/switch_item then use Switch or use SwitchCompact
-//        // if you are using Switch in your @layout/switch_item then use Switch or use SwitchCompact
-//        switchButton.setOnCheckedChangeListener { compoundButton: CompoundButton?, b: Boolean ->
-//            if (b) {
-//                Toast.makeText(this, "True", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "False", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-//        val navigationView = findViewById(R.id.nav_view) as NavigationView
-//        val item = navigationView.menu.findItem(R.id.app_bar_switch)
-//        val mySwitch = item.actionView!!.findViewById<View>(R.id.app_bar_switch) as SwitchCompat
-//        navigationView.setNavigationItemSelectedListener(this)
-//        //set the switch to ON
-//        mySwitch.isChecked = true
-//        //attach a listener to check for changes in state
-//        mySwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked) {
-//                start()
-//            } else {
-//                //mMap.clear()
-//            }
-//        }
-
+    }
+    companion object {
+        const val flagPas = "total_count"
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.drawer_items, menu);
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.getItemId()){
-            R.id.app_bar_switch ->
-                if (item.isChecked){
-                    item.setChecked(false)
-                    Toast.makeText(this, "YES", Toast.LENGTH_LONG)
-                }
-                else{
-                    item.setChecked(true)
-                    Toast.makeText(this, "NO", Toast.LENGTH_LONG)
-                }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when(item.getItemId()){
+//            R.id.app_bar_switch ->
+//                if (item.isChecked){
+//                    item.setChecked(false)
+//                    Toast.makeText(this, "YES", Toast.LENGTH_LONG)
+//                }
+//                else{
+//                    item.setChecked(true)
+//                    Toast.makeText(this, "NO", Toast.LENGTH_LONG)
+//                }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
     private lateinit var navView: NavigationView
     private lateinit var toolbar: Toolbar
     private lateinit var toggle: ActionBarDrawerToggle
@@ -165,7 +133,6 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-
         textView2.text = savedInstanceState.getString("KEY")
         textView3.text = savedInstanceState.getString("KeyTVL")
         textView4.text = savedInstanceState.getString("KeyTVL2")
@@ -365,7 +332,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button3)
         }
         checkIfButt(textView2)
     }
@@ -373,7 +340,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun buyUp2(view: View) {
         val myTimer = Timer()
         if (button4.text == "     cost: 10" && (parseInt(textView2.text.toString()) - cost2) >= 0) {
-            imageView21.setColorFilter(Color.argb(1, 1, 1, 1))
+            changePal(imageView21, imageView2, "#ABFFAB","#00FF00","#346934", "#14ff82")
             textView2.text = (parseInt(textView2.text.toString()) - cost2).toString()
             button4.text = "+3   cost: 15"
             cost2 = 15
@@ -396,7 +363,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button4)
         } else if (button4.text == "-0.1   cost: 30" && (parseInt(textView2.text.toString()) - cost2) >= 0) {
             setDone(button4, cost2)
             cost2 = 0
@@ -407,7 +374,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun buyUp3(view: View) {
         val myTimer = Timer()
         if (button5.text == "     cost: 15" && (parseInt(textView2.text.toString()) - cost3) >= 0) {
-            imageView31.setColorFilter(Color.argb(1, 1, 1, 1))
+            changePal(imageView3, imageView31, "#FBFDAA", "#FFFF00", "#B8B050", "#FEB629")
             textView2.text = (parseInt(textView2.text.toString()) - cost3).toString()
             button5.text = "+5   cost: 20"
             cost3 = 20
@@ -430,7 +397,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button5)
         }
         checkIfButt(textView2)
     }
@@ -438,7 +405,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun buyUp4(view: View) {
         var myTimer = Timer()
         if (button6.text == "     cost: 20" && (parseInt(textView2.text.toString()) - cost4) >= 0) {
-            imageView41.setColorFilter(Color.argb(1, 1, 1, 1))
+            changePal(imageView4, imageView41, "#FFB8FB", "#FF17F2", "#B850B2", "#FE34FF")
             textView2.text = (parseInt(textView2.text.toString()) - 17).toString()
             cost4 = 25
             button6.text = "+6   cost: 25"
@@ -461,7 +428,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button6)
         }
         checkIfButt(textView2)
     }
@@ -469,7 +436,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun buyUp5(view: View) {
         var myTimer = Timer()
         if (button7.text == "     cost: 25" && (parseInt(textView2.text.toString()) - cost5) >= 0) {
-            imageView51.setColorFilter(Color.argb(1, 1, 1, 1))
+            changePal(imageView5, imageView51, "#B7FFFE", "#25FFFC", "#33C6C4", "#16DDFC")
             textView2.text = (parseInt(textView2.text.toString()) - cost5).toString()
             cost5 = 30
             button7.text = "+7   cost: 30"
@@ -492,7 +459,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button7)
         }
         checkIfButt(textView2)
     }
@@ -500,7 +467,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun buyUp6(view: View) {
         val myTimer = Timer()
         if (button8.text == "     cost: 30") {
-            imageView61.setColorFilter(Color.argb(1, 1, 1, 1))
+            changePal(imageView6, imageView61, "#FFB79A", "#FF7D23", "#D55D21", "#FD6D6C")
             textView2.text = (parseInt(textView2.text.toString()) - cost6).toString()
             cost6 = 35
             button8.text = "+9   cost: 35"
@@ -524,7 +491,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
             }
             myTimer.schedule(timerTask, 1000, 2000)
-            button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+            setAutoBack(button8)
         }
         checkIfButt(textView2)
     }
@@ -587,8 +554,11 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.getItemId() == R.id.nav_profile) {
-            val toast = Toast.makeText(this, "SHARE", Toast.LENGTH_LONG)
-            toast.show()
+            //val toast = Toast.makeText(this, "SHARE", Toast.LENGTH_LONG)
+            //toast.show()
+            val randomInt = Intent(this, ChangePalette::class.java)
+            startActivity(randomInt)
+            this.finish()
         }
     if (item.getItemId() == R.id.app_bar_switch){
         if (isLightTheme == false) {
@@ -599,41 +569,98 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             //item.setIcon(getResources().getDrawable(R.drawable.baseline_brightness_2_24))
         }
         recreate()
-
-//                if (item.isChecked){
-//                    item.setChecked(false)
-//                    Toast.makeText(this, "YES", Toast.LENGTH_LONG)
-//                }
-//                else{
-//                    item.setChecked(true)
-//                    Toast.makeText(this, "NO", Toast.LENGTH_LONG)
-//                }
-
         }
-
-//        val sw = findViewById<Switch>(R.id.app_bar_switch)
-//        sw.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked) {
-//                val toast = Toast.makeText(this, "NO", Toast.LENGTH_LONG)
-//                toast.show()
-//            } else {
-//                // The toggle is disabled
-//            }
-//
-//        }
-//        when(item.getItemId()){
-//            R.id.app_bar_switch -> Toast.makeText(this, "YES", Toast.LENGTH_LONG)
-//                if (item.isChecked){
-//                    item.setChecked(false)
-//                    Toast.makeText(this, "YES", Toast.LENGTH_LONG)
-//                }
-//                else{
-//                    item.setChecked(true)
-//                    Toast.makeText(this, "NO", Toast.LENGTH_LONG)
-//                }
- //       }
         return true
       }
+    fun userLog(view:View){
+        val intentGo = Intent(this, UserLogin::class.java)
+        startActivity(intentGo)
+    }
+
+    override fun onStart(){
+        super.onStart()
+//        else if(intent.getStringExtra(flagPas) == "1") {
+//            if (flagBud2 == 1){
+//                imageView21.setColorFilter(Color.parseColor("#00FF00"))
+//                imageView2.setColorFilter(Color.parseColor("#00FF00"))
+//            }
+//            if (flagBud3 == true) {
+//                imageView31.setColorFilter(Color.parseColor("#FFFF00"))
+//                imageView3.setColorFilter(Color.parseColor("#FFFF00"))
+//            }
+//        }
+//        else if(intent.getStringExtra(flagPas) == "2") {
+//            if (flagBud2 == 1){
+//                imageView21.setColorFilter(Color.parseColor("#98FB98"))
+//                imageView2.setColorFilter(Color.parseColor("#98FB98"))
+//            }
+//            if (flagBud3 == true) {
+//                imageView31.setColorFilter(Color.parseColor("#FFFF00"))
+//                imageView3.setColorFilter(Color.parseColor("#FFFF00"))
+//            }
+//        }
+//        else if(intent.getStringExtra(flagPas) == "3") {
+//            //Toast.makeText(this, intent.getStringExtra(flagPas), Toast.LENGTH_LONG).show()
+//            imageView11.setColorFilter(Color.parseColor("#DCDCDC"))
+//            imageView.setColorFilter(Color.parseColor("#DCDCDC"))
+//            if (flagBud2 == 1) {
+//                imageView21.setColorFilter(Color.parseColor("#006400"))
+//                imageView2.setColorFilter(Color.parseColor("#006400"))
+//            }
+//            if (flagBud3 == true) {
+//                imageView31.setColorFilter(Color.parseColor("#BDB76B"))
+//                imageView3.setColorFilter(Color.parseColor("#BDB76B"))
+//            }
+//        }
+        if (intent.getStringExtra(flagPas) != null){
+            changePal(imageView, imageView11, "#FFFFFF", "#FFFFFF", "#D8D7D4", "#FFFFFF")
+        }
+        if (flagBud2 == 1){
+            changePal(imageView2, imageView21, "#ABFFAB", "#00FF00", "#346934", "#14ff82")
+        }
+        if (flagBud3 == true){
+            changePal(imageView3, imageView31, "#FBFDAA", "#FFFF00", "#B8B050", "#FEB629")
+        }
+        if (flagBud4 == true){
+            changePal(imageView4, imageView41, "#FFB8FB", "#FF17F2", "#B850B2", "#FE34FF")
+        }
+        if (flagBud5 == true){
+            changePal(imageView5, imageView51, "#B7FFFE", "#25FFFC", "#33C6C4", "#16DDFC")
+        }
+        if (flagBud6 == true){
+            changePal(imageView6, imageView61, "#FFB79A", "#FF7D23", "#D55D21", "#FD6D6C")
+        }
+    }
+    fun changePal(imV: ImageView, imV1: ImageView, colP:String, colB: String, colD: String, colR: String) {
+        if (intent.getStringExtra(flagPas) == null) {
+            imV.setColorFilter(Color.parseColor(colP))
+            imV1.setColorFilter(Color.parseColor(colP))
+        }
+        if (intent.getStringExtra(flagPas) == "1") {
+            imV.setColorFilter(Color.parseColor(colP))
+            imV1.setColorFilter(Color.parseColor(colP))
+        }
+        else if (intent.getStringExtra(flagPas) == "2") {
+            imV.setColorFilter(Color.parseColor(colB))
+            imV1.setColorFilter(Color.parseColor(colB))
+        }
+        else if (intent.getStringExtra(flagPas) == "3") {
+            imV.setColorFilter(Color.parseColor(colD))
+            imV1.setColorFilter(Color.parseColor(colD))
+        }
+        else if (intent.getStringExtra(flagPas) == "4") {
+            imV.setColorFilter(Color.parseColor(colR))
+            imV1.setColorFilter(Color.parseColor(colR))
+        }
+    }
+    fun setAutoBack(button: Button){
+        if (isLightTheme == false) {
+            button.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
+        } else if (isLightTheme == true) {
+            button.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work_light))
+        }
+
+    }
 
 }
 

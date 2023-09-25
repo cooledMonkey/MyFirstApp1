@@ -255,7 +255,6 @@
                         android:textAllCaps="false"
                         android:textColor="#888888"
                         tools:targetApi="m" />
-
                     <android.widget.Button
                         android:id="@+id/button4"
                         android:layout_width="185dp"
@@ -436,10 +435,14 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:onClick="userLog"
                 app:srcCompat="@drawable/user_icon">
 
             </ImageView>

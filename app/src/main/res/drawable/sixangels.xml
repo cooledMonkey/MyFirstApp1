@@ -5,7 +5,7 @@
     android:viewportWidth="122.0"
     android:width="40dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FDAAF4"
+    <path android:fillColor="#FFB8FB"
         android:pathData="m0.75,54.75l25.92857,-54l69.14286,0l25.92857,54l-25.92857,54l-69.14286,0l-25.92857,-54z"
     />
 </vector>
