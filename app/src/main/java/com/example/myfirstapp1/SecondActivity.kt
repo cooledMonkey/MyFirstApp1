@@ -1,6 +1,8 @@
 package com.example.myfirstapp1
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils.concat
@@ -25,17 +27,62 @@ import java.util.Timer
 import java.util.TimerTask
 
 
-//  TODO: сохранение состояний кнопок и цветовой гаммы фигур
 
 
 var isLightTheme = false
-var  flagBud2 = 0
-var  flagBud3 = false
-var  flagBud4 = false
-var  flagBud5 = false
-var  flagBud6 = false
+//class SharedPreference(val context: Context) {
+//    private val PREFS_NAME = "kotlincodes"
+//    val mSettings: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+//    fun save(KEY_NAME: String, text: String) {
+//
+//        val editor: SharedPreferences.Editor = mSettings.edit()
+//
+//        editor.putString(KEY_NAME, text)
+//
+//        editor!!.commit()
+//    }
+//    fun save(KEY_NAME: String, value: Int) {
+//        val editor: SharedPreferences.Editor = mSettings.edit()
+//
+//        editor.putInt(KEY_NAME, value)
+//
+//        editor.commit()
+//    }
+//    fun save(KEY_NAME: String, status: Boolean) {
+//
+//        val editor: SharedPreferences.Editor = mSettings.edit()
+//
+//        editor.putBoolean(KEY_NAME, status!!)
+//
+//        editor.commit()
+//    }
+//    fun getValueString(KEY_NAME: String): String? {
+//
+//        return mSettings.getString(KEY_NAME, null)
+//
+//
+//    }
+//    fun getValueInt(KEY_NAME: String): Int {
+//
+//        return mSettings.getInt(KEY_NAME, 0)
+//    }
+//
+//    fun getValueBoolien(KEY_NAME: String, defaultValue: Boolean): Boolean {
+//
+//        return mSettings.getBoolean(KEY_NAME, defaultValue)
+//
+//    }
+//    fun clearData(){
+//        val editor: SharedPreferences.Editor = mSettings.edit()
+//
+//        editor.clear().commit()
+//    }
+//
+//}
+
 class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
+    //private lateinit var sharedPreference: SharedPreference
     override fun onCreate(savedInstanceState: Bundle?) {
         if (isLightTheme == false) {
             setTheme(R.style.Base_Theme_MyFirstApp1)
@@ -83,33 +130,92 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         constraintLayout2 = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
+        //sharedPreference = SharedPreference((this))
+        val db = MainDB.getDB(this)
+        Thread {
+                //val circ = db.getDao().getCirc(3)
+                //var idLoad = db.getDao().lastId().toInt()
+            //var idLoad = 1
+                if (intent.getStringExtra(regFlag) != null){
+                    var idLoad = parseInt(intent.getStringExtra(regFlag).toString())
+                    textView3.text = db.getDao().getCircText1(idLoad)
+                    button3.text = db.getDao().getCircBt(idLoad)
+                    textView4.text = db.getDao().getTrigText2(idLoad)
+                    button4.text = db.getDao().getTrigBt(idLoad)
+                    flagBud2 = db.getDao().getTrigFb(idLoad)
+                    textView5.text = db.getDao().getSquText2(idLoad)
+                    button5.text = db.getDao().getSquBt(idLoad)
+                    flagBud3 = db.getDao().getSquFb(idLoad)
+                    textView8.text = db.getDao().getSixText2(idLoad)
+                    button6.text = db.getDao().getSixBt(idLoad)
+                    flagBud4 = db.getDao().getSixFb(idLoad)
+                    textView7.text = db.getDao().getEighText2(idLoad)
+                    button7.text = db.getDao().getEighBt(idLoad)
+                    flagBud5 = db.getDao().getEighFb(idLoad)
+                    textView9.text = db.getDao().getStarText2(idLoad)
+                    button8.text = db.getDao().getStarBt(idLoad)
+                    flagBud6 = db.getDao().getStarFb(idLoad)
+                    textView2.text = db.getDao().getScore(idLoad).toString()
+                    flagBud(textView2)
+                }
+
+//                db.getDao().getCirc(2)
+//                textView3.text = db.getDao().getCircText1(idLoad)
+//                button3.text = db.getDao().getCircBt(idLoad)
+//                textView4.text = db.getDao().getTrigText2(idLoad)
+//                button4.text = db.getDao().getTrigBt(idLoad)
+//                flagBud2 = db.getDao().getTrigFb(idLoad)
+//                var score = db.getDao().getScore(idLoad)
+//            textView2.text = score.toString()
+            //checkIfButt(textView2)
+        }.start()
+
+//        if (sharedPreference.getValueString("fB2")!=null) {
+//            textView2.text = sharedPreference.getValueString("text")
+//            textView3.text = sharedPreference.getValueString("text3")
+//            textView4.text = sharedPreference.getValueString("text4")
+//            textView5.text = sharedPreference.getValueString("text5")
+//            textView9.text = sharedPreference.getValueString("text9")
+//            textView7.text = sharedPreference.getValueString("text7")
+//            textView8.text = sharedPreference.getValueString("text8")
+//            button3.text = sharedPreference.getValueString("textB1")
+//            button4.text = sharedPreference.getValueString("textB2")
+//            button5.text = sharedPreference.getValueString("textB3")
+//            button6.text = sharedPreference.getValueString("textB4")
+//            button7.text = sharedPreference.getValueString("textB5")
+//            button8.text = sharedPreference.getValueString("textB6")
+//            flagBud2 = sharedPreference.getValueString("fB2")!!
+//            flagBud3 = sharedPreference.getValueBoolien("fB3", false)
+//            flagBud4 = sharedPreference.getValueBoolien("fB4", false)
+//            flagBud5 = sharedPreference.getValueBoolien("fB5", false)
+//            flagBud6 = sharedPreference.getValueBoolien("fB6", false)
+//            checkIfButt(textView2)
+//            flagBud(textView2)
+//            Toast.makeText(this,"Data Retrieved",Toast.LENGTH_SHORT).show()
+//        }
+
     }
     companion object {
         const val flagPas = "total_count"
+        var regFlag = "total_count"
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.drawer_items, menu);
         return super.onCreateOptionsMenu(menu)
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when(item.getItemId()){
-//            R.id.app_bar_switch ->
-//                if (item.isChecked){
-//                    item.setChecked(false)
-//                    Toast.makeText(this, "YES", Toast.LENGTH_LONG)
-//                }
-//                else{
-//                    item.setChecked(true)
-//                    Toast.makeText(this, "NO", Toast.LENGTH_LONG)
-//                }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
     private lateinit var navView: NavigationView
     private lateinit var toolbar: Toolbar
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var constraintLayout2: ConstraintLayout
+    var  flagBud2 = false
+    var  flagBud3 = false
+    var  flagBud4 = false
+    var  flagBud5 = false
+    var  flagBud6 = false
+
+    private lateinit var text2: TextView
     override fun onSaveInstanceState(outState: Bundle) {
 
         outState?.run {
@@ -133,21 +239,21 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        textView2.text = savedInstanceState.getString("KEY")
-        textView3.text = savedInstanceState.getString("KeyTVL")
-        textView4.text = savedInstanceState.getString("KeyTVL2")
-        textView5.text = savedInstanceState.getString("KeyTVL3")
-        textView7.text = savedInstanceState.getString("KeyTVL4")
-        textView8.text = savedInstanceState.getString("KeyTVL5")
-        textView9.text = savedInstanceState.getString("KeyTVL6")
-        button3.text = savedInstanceState.getString("KeyBut3Tx")
-        button4.text = savedInstanceState.getString("KeyBut4Tx")
-        button5.text = savedInstanceState.getString("KeyBut5Tx")
-        button6.text = savedInstanceState.getString("KeyBut6Tx")
-        button7.text = savedInstanceState.getString("KeyBut7Tx")
-        button8.text = savedInstanceState.getString("KeyBut8Tx")
-        checkIfButt(textView2)
-        flagBud(textView2)
+//        textView2.text = savedInstanceState.getString("KEY")
+//        textView3.text = savedInstanceState.getString("KeyTVL")
+//        textView4.text = savedInstanceState.getString("KeyTVL2")
+//        textView5.text = savedInstanceState.getString("KeyTVL3")
+//        textView7.text = savedInstanceState.getString("KeyTVL4")
+//        textView8.text = savedInstanceState.getString("KeyTVL5")
+//        textView9.text = savedInstanceState.getString("KeyTVL6")
+//        button3.text = savedInstanceState.getString("KeyBut3Tx")
+//        button4.text = savedInstanceState.getString("KeyBut4Tx")
+//        button5.text = savedInstanceState.getString("KeyBut5Tx")
+//        button6.text = savedInstanceState.getString("KeyBut6Tx")
+//        button7.text = savedInstanceState.getString("KeyBut7Tx")
+//        button8.text = savedInstanceState.getString("KeyBut8Tx")
+          checkIfButt(textView2)
+//        flagBud(textView2)
     }
 
     @Override
@@ -156,6 +262,8 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             drawer.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+            val intentMain = Intent(this, MainActivity::class.java)
+            startActivity(intentMain)
         }
 
     }
@@ -248,6 +356,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var timerTask: TimerTask
 
 
+
     var cost = 4
     var cost2 = 10
     var cost3 = 15
@@ -261,7 +370,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     fun addNum2(view: View) {
-        if (flagBud2 == 0) {
+        if (flagBud2 == false) {
             imageView21.setEnabled(false)
         } else {
             addN(imageView2, parseInt(textView4.text.toString()))
@@ -344,7 +453,8 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             textView2.text = (parseInt(textView2.text.toString()) - cost2).toString()
             button4.text = "+3   cost: 15"
             cost2 = 15
-            flagBud2 = 1
+            flagBud2 = true
+            //sharedPreference.save("flB2", flagBud2)
         } else if (textView4.text == "+2" && (parseInt(textView2.text.toString()) - cost2) >= 0) {
             upCost(textView4, 5, button4, "+5", "+4", 10)
             cost2 = 20
@@ -369,6 +479,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             cost2 = 0
         }
         checkIfButt(textView2)
+        flagBud(textView2)
     }
 
     fun buyUp3(view: View) {
@@ -400,6 +511,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             setAutoBack(button5)
         }
         checkIfButt(textView2)
+        flagBud(textView2)
     }
 
     fun buyUp4(view: View) {
@@ -431,6 +543,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             setAutoBack(button6)
         }
         checkIfButt(textView2)
+        flagBud(textView2)
     }
 
     fun buyUp5(view: View) {
@@ -462,6 +575,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             setAutoBack(button7)
         }
         checkIfButt(textView2)
+        flagBud(textView2)
     }
 
     fun buyUp6(view: View) {
@@ -494,6 +608,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             setAutoBack(button8)
         }
         checkIfButt(textView2)
+        flagBud(textView2)
     }
 
 
@@ -535,7 +650,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     fun flagBud(textView: TextView) {
-        if (flagBud2 == 1) {
+        if (flagBud2 == true) {
             imageView21.setColorFilter(Color.argb(1, 1, 1, 1))
         }
         if (flagBud3 == true) {
@@ -557,6 +672,9 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             //val toast = Toast.makeText(this, "SHARE", Toast.LENGTH_LONG)
             //toast.show()
             val randomInt = Intent(this, ChangePalette::class.java)
+            if (intent.getStringExtra(regFlag) != null){
+                randomInt.putExtra(ChangePalette.regFlag, intent.getStringExtra(regFlag))
+            }
             startActivity(randomInt)
             this.finish()
         }
@@ -573,49 +691,80 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return true
       }
     fun userLog(view:View){
+        if (intent.getStringExtra(regFlag) == null) {
+            val db = MainDB.getDB(this)
+            val circ = CircProg(
+                null, 1, button3.text.toString(), textView3.text.toString(),
+                false)
+            val trig = TrigProg(
+                null, 1, button4.text.toString(), textView4.text.toString(),
+                false, flagBud2)
+            val squ = SquarProg(
+                null, 1, button5.text.toString(), textView5.text.toString(),
+                false, flagBud3)
+            val six = SixProg(
+                null, 1, button6.text.toString(), textView8.text.toString(),
+                false, flagBud4)
+            val eigh = EighProg(
+                null, 1, button7.text.toString(), textView7.text.toString(),
+                false, flagBud5)
+            val star = StarProg(
+                null, 1, button8.text.toString(), textView9.text.toString(),
+                false, flagBud6)
+            val gameD = GameData(null, null, null, null, null, null, null, null, parseInt(textView2.text.toString()))
+            Thread {
+                db.getDao().insertCirc(circ)
+                db.getDao().insertTrig(trig)
+                db.getDao().insertSqu(squ)
+                db.getDao().insertSix(six)
+                db.getDao().insertEigh(eigh)
+                db.getDao().insertStar(star)
+                db.getDao().insertGameData(gameD)
+            }.start()
+        }
+        else{
+            Thread {
+                val db = MainDB.getDB(this)
+                //val gameD = GameData(null, null, null, null, parseInt(textView2.text.toString()))
+                var idLoad = parseInt(intent.getStringExtra(regFlag))
+                db.getDao().updateScore(textView2.text.toString(), idLoad)
+                db.getDao().updateCircT(textView3.text.toString(), idLoad)
+                db.getDao().updateCircBt(button3.text.toString(), idLoad)
+                db.getDao().updateCircAu(false, idLoad)
+                db.getDao().updateTrigT(textView4.text.toString(), idLoad)
+                db.getDao().updateTrigBt(button4.text.toString(), idLoad)
+                db.getDao().updateTrigFb(flagBud2, idLoad)
+                db.getDao().updateTrigAu(false, idLoad)
+                db.getDao().updateSquT(textView5.text.toString(), idLoad)
+                db.getDao().updateSquBt(button5.text.toString(), idLoad)
+                db.getDao().updateSquFb(flagBud3, idLoad)
+                db.getDao().updateSquAu(false, idLoad)
+                db.getDao().updateSixT(textView8.text.toString(), idLoad)
+                db.getDao().updateSixBt(button6.text.toString(), idLoad)
+                db.getDao().updateSixFb(flagBud4, idLoad)
+                db.getDao().updateSixAu(false, idLoad)
+                db.getDao().updateEighT(textView7.text.toString(), idLoad)
+                db.getDao().updateEighBt(button7.text.toString(), idLoad)
+                db.getDao().updateEighFb(flagBud5, idLoad)
+                db.getDao().updateEighAu(false, idLoad)
+                db.getDao().updateStarT(textView9.text.toString(), idLoad)
+                db.getDao().updateStarBt(button8.text.toString(), idLoad)
+                db.getDao().updateStarFb(flagBud6, idLoad)
+                db.getDao().updateStarAu(false, idLoad)
+
+            }.start()
+        }
         val intentGo = Intent(this, UserLogin::class.java)
         startActivity(intentGo)
     }
 
     override fun onStart(){
         super.onStart()
-//        else if(intent.getStringExtra(flagPas) == "1") {
-//            if (flagBud2 == 1){
-//                imageView21.setColorFilter(Color.parseColor("#00FF00"))
-//                imageView2.setColorFilter(Color.parseColor("#00FF00"))
-//            }
-//            if (flagBud3 == true) {
-//                imageView31.setColorFilter(Color.parseColor("#FFFF00"))
-//                imageView3.setColorFilter(Color.parseColor("#FFFF00"))
-//            }
-//        }
-//        else if(intent.getStringExtra(flagPas) == "2") {
-//            if (flagBud2 == 1){
-//                imageView21.setColorFilter(Color.parseColor("#98FB98"))
-//                imageView2.setColorFilter(Color.parseColor("#98FB98"))
-//            }
-//            if (flagBud3 == true) {
-//                imageView31.setColorFilter(Color.parseColor("#FFFF00"))
-//                imageView3.setColorFilter(Color.parseColor("#FFFF00"))
-//            }
-//        }
-//        else if(intent.getStringExtra(flagPas) == "3") {
-//            //Toast.makeText(this, intent.getStringExtra(flagPas), Toast.LENGTH_LONG).show()
-//            imageView11.setColorFilter(Color.parseColor("#DCDCDC"))
-//            imageView.setColorFilter(Color.parseColor("#DCDCDC"))
-//            if (flagBud2 == 1) {
-//                imageView21.setColorFilter(Color.parseColor("#006400"))
-//                imageView2.setColorFilter(Color.parseColor("#006400"))
-//            }
-//            if (flagBud3 == true) {
-//                imageView31.setColorFilter(Color.parseColor("#BDB76B"))
-//                imageView3.setColorFilter(Color.parseColor("#BDB76B"))
-//            }
-//        }
+//        val db = MainDB.getDB(this)
         if (intent.getStringExtra(flagPas) != null){
             changePal(imageView, imageView11, "#FFFFFF", "#FFFFFF", "#D8D7D4", "#FFFFFF")
         }
-        if (flagBud2 == 1){
+        if (flagBud2 == true){
             changePal(imageView2, imageView21, "#ABFFAB", "#00FF00", "#346934", "#14ff82")
         }
         if (flagBud3 == true){
@@ -653,6 +802,7 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             imV1.setColorFilter(Color.parseColor(colR))
         }
     }
+
     fun setAutoBack(button: Button){
         if (isLightTheme == false) {
             button.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work))
@@ -660,6 +810,62 @@ class SecondActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             button.setBackgroundDrawable(getResources().getDrawable(R.drawable.auto_button_work_light))
         }
 
+    }
+
+    override fun onStop(){
+        super.onStop()
+        var text = textView2.text.toString()
+//        sharedPreference.save("text", text)
+//        sharedPreference.save("text3", textView3.text.toString())
+//        sharedPreference.save("text4", textView4.text.toString())
+//        sharedPreference.save("text5", textView5.text.toString())
+//        sharedPreference.save("text9", textView9.text.toString())
+//        sharedPreference.save("text7", textView7.text.toString())
+//        sharedPreference.save("text8", textView8.text.toString())
+//        sharedPreference.save("textB1", button3.text.toString())
+//        sharedPreference.save("textB2", button4.text.toString())
+//        sharedPreference.save("textB3", button5.text.toString())
+//        sharedPreference.save("textB4", button6.text.toString())
+//        sharedPreference.save("textB5", button7.text.toString())
+//        sharedPreference.save("textB6", button8.text.toString())
+//        sharedPreference.save("flB3", flagBud3)
+//        sharedPreference.save("flB4", flagBud4)
+//        sharedPreference.save("flB5", flagBud5)
+//        sharedPreference.save("flB6", flagBud6)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Thread {
+            val db = MainDB.getDB(this)
+            //val gameD = GameData(null, null, null, null, parseInt(textView2.text.toString()))
+            var idLoad = parseInt(intent.getStringExtra(regFlag))
+            db.getDao().updateScore(textView2.text.toString(), idLoad)
+            db.getDao().updateCircT(textView3.text.toString(), idLoad)
+            db.getDao().updateCircBt(button3.text.toString(), idLoad)
+            db.getDao().updateCircAu(false, idLoad)
+            db.getDao().updateTrigT(textView4.text.toString(), idLoad)
+            db.getDao().updateTrigBt(button4.text.toString(), idLoad)
+            db.getDao().updateTrigFb(flagBud2, idLoad)
+            db.getDao().updateTrigAu(false, idLoad)
+            db.getDao().updateSquT(textView5.text.toString(), idLoad)
+            db.getDao().updateSquBt(button5.text.toString(), idLoad)
+            db.getDao().updateSquFb(flagBud3, idLoad)
+            db.getDao().updateSquAu(false, idLoad)
+            db.getDao().updateSixT(textView8.text.toString(), idLoad)
+            db.getDao().updateSixBt(button6.text.toString(), idLoad)
+            db.getDao().updateSixFb(flagBud4, idLoad)
+            db.getDao().updateSixAu(false, idLoad)
+            db.getDao().updateEighT(textView7.text.toString(), idLoad)
+            db.getDao().updateEighBt(button7.text.toString(), idLoad)
+            db.getDao().updateEighFb(flagBud5, idLoad)
+            db.getDao().updateEighAu(false, idLoad)
+            db.getDao().updateStarT(textView9.text.toString(), idLoad)
+            db.getDao().updateStarBt(button8.text.toString(), idLoad)
+            db.getDao().updateStarFb(flagBud6, idLoad)
+            db.getDao().updateStarAu(false, idLoad)
+
+        }.start()
     }
 
 }
